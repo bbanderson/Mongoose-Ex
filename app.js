@@ -21,6 +21,39 @@ const vintage62 = new Guitar({
   name: "Vintage 62 Stratocaster Reissue",
   company: "Fender",
   price: 2000
-})
+});
+
+const es335 = new Guitar({
+  name: "ES335",
+  company: "Gibson",
+  price: 1800
+});
+
+const angel = new Guitar({
+  name: "Angel",
+  company: "Tom Anderson",
+  price: 4000
+});
+
+const burningWater = new Guitar({
+  name: "Burning Water",
+  company: "James Tyler",
+  price: 5000
+});
 
 // vintage62.save();
+Guitar.insertMany([es335, angel, burningWater], err => {console.log(err? "Failed":"Success");})
+
+const customerSchema = new mongoose.Schema({
+  name: String,
+  age: Number
+});
+
+const Customer = new mongoose.model('Customer', customerSchema);
+
+const paul = new Customer({
+  name: "Paul",
+  age: 25
+});
+
+// paul.save();
