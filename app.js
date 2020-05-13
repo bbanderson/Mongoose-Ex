@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 // mongodb 서버에 guitarDB라는 이름의 Database를 기록한다.
 mongoose.connect('mongodb://localhost:27017/guitarDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
-// Database 필드 형태를 정의한다. 이 형태를 스키마라고 부른다.
+// SQL로 생각하면 "테이블"과 그 스키마를 정의하는 부분이다. 즉 필드 형태를 정의하는 것이다.
 const guitarSchema = new mongoose.Schema({
   name: String,
   company: String,
@@ -22,6 +22,9 @@ const vintage62 = new Guitar({
   company: "Fender",
   price: 2000
 });
+
+// 레코드를 한개만 INSERT 하려면 해당 레코드에 대해 아래와 같이 .save() 메서드를 이용한다.
+// vintage62.save();
 
 const es335 = new Guitar({
   name: "ES335",
@@ -41,9 +44,11 @@ const burningWater = new Guitar({
   price: 5000
 });
 
-// vintage62.save();
-Guitar.insertMany([es335, angel, burningWater], err => {console.log(err? "Failed":"Success");})
+// 여러 레코드를 한번에 INSERT 하려면 클래스 모델에 대해 .insertMany()함수를 이용하여 배열로 넣는다. 이때 2번째 인자로 콜백함수를 넣어 에러를 처리하도록 하자.
+// Guitar.insertMany([es335, angel, burningWater], err => {console.log(err? "Failed":"Success");})
 
+
+// 또 다른 테이블이 필요하면 그 스키마와 함께 정의하면 된다. 이하 상기 동일
 const customerSchema = new mongoose.Schema({
   name: String,
   age: Number
@@ -57,3 +62,6 @@ const paul = new Customer({
 });
 
 // paul.save();
+
+Guitar.find((err, guitars) => err ? console.log(err) : guitars.forEach(item => {console.log(item.name);mongoose.connection.close();}))
+
