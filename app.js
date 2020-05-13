@@ -6,9 +6,18 @@ mongoose.connect('mongodb://localhost:27017/guitarDB', {useNewUrlParser: true, u
 
 // SQL로 생각하면 "테이블"과 그 스키마를 정의하는 부분이다. 즉 필드 형태를 정의하는 것이다.
 const guitarSchema = new mongoose.Schema({
-  name: String,
-  company: String,
-  price: Number,
+  name: {
+    type: String,
+    required: [true, "how could it be noname?"]
+  },
+  company: {
+    type: String
+  },
+  price: {
+    type: Number,
+    min: 1000,
+    max: 10000
+  },
 });
 
 // 이제 위에서 정의한 스키마를 기반으로 하는 레코드들을 대량생산하기 위한 클래스(모델, 틀)를 정의한다.
@@ -63,5 +72,12 @@ const paul = new Customer({
 
 // paul.save();
 
-Guitar.find((err, guitars) => err ? console.log(err) : guitars.forEach(item => {console.log(item.name);mongoose.connection.close();}))
+// Guitar.find((err, guitars) => err ? console.log(err) : guitars.forEach(item => {
+//   console.log(item.name);
+//   mongoose.connection.close();
+// }))
 
+const tuttle = new Guitar({
+  company: "K"
+})
+tuttle.save()
