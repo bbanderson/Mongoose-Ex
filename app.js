@@ -25,6 +25,7 @@ const guitarSchema = new mongoose.Schema({
 // 즉 다음 줄은 guitarSchema를 필드로 가지는 각각의 'Guitar' Document(레코드)를 인스턴스화 하기 위한 클래스 모델을 정의하는 명령이다.
 const Guitar = new mongoose.model('Guitar', guitarSchema);
 
+// ********** CREATE **********
 // Guitar 클래스(모델)로부터 vintage62라는 Document(레코드)를 하나 생성한다.
 const vintage62 = new Guitar({
   name: "Vintage 62 Stratocaster Reissue",
@@ -72,12 +73,16 @@ const paul = new Customer({
 
 // paul.save();
 
+
+// ********** READ **********
 // Guitar.find((err, guitars) => err ? console.log(err) : guitars.forEach(item => {
-//   console.log(item.name);
+//   console.log(item);
 //   mongoose.connection.close();
 // }))
 
-const tuttle = new Guitar({
-  company: "K"
-})
-tuttle.save()
+// ********** UPDATE **********
+// Guitar.updateOne({_id: "5ebb5b5aabe5f90775832740"}, {price: 8000}, (err)=> err? console.log(err):console.log("Update Complete!"))
+
+// ********** DELETE **********
+// Guitar.deleteOne({_id: "5ebb5b5aabe5f90775832740"}, err => err? console.log(err) : console.log("Deleted!"))
+Customer.deleteMany({name: /Paul/}, err => err ? console.log(err) : console.log("Deleted!"))
