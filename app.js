@@ -61,7 +61,8 @@ const burningWater = new Guitar({
 // 또 다른 테이블이 필요하면 그 스키마와 함께 정의하면 된다. 이하 상기 동일
 const customerSchema = new mongoose.Schema({
   name: String,
-  age: Number
+  age: Number,
+  favoriteGuitar: guitarSchema
 });
 
 const Customer = new mongoose.model('Customer', customerSchema);
@@ -72,7 +73,6 @@ const paul = new Customer({
 });
 
 // paul.save();
-
 
 // ********** READ **********
 // Guitar.find((err, guitars) => err ? console.log(err) : guitars.forEach(item => {
@@ -85,4 +85,15 @@ const paul = new Customer({
 
 // ********** DELETE **********
 // Guitar.deleteOne({_id: "5ebb5b5aabe5f90775832740"}, err => err? console.log(err) : console.log("Deleted!"))
-Customer.deleteMany({name: /Paul/}, err => err ? console.log(err) : console.log("Deleted!"))
+// Customer.deleteMany({name: /Paul/}, err => err ? console.log(err) : console.log("Deleted!"))
+
+// ********** RELATION **********
+const tuttle = Guitar({
+  name: "Michael Tuttle Custom S",
+  company: "Michael Tuttle",
+  price: 3000
+})
+
+// tuttle.save()
+
+// Customer.updateOne({name:"Paul"}, {favoriteGuitar: tuttle}, (err)=>err?console.log(err):console.log("Updated!"))
